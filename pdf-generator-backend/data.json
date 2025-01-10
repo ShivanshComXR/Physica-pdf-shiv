@@ -1,0 +1,40 @@
+{
+  "patient_name": "Mitesh",
+  "date": "2024-10-03",
+  "age": "23",
+  "gender": "Male",
+  "surgery_type": "Example 1",
+  "date_of_surgery": "2025-01-11",
+  "primary_complaint": "Example 2",
+  "differential_diagnosis": "Example 3",
+  "pain_level": "6",
+  "pain_type": [
+    "Sharp shooting",
+    "Dull aching"
+  ],
+  "affected_joints": [
+    "Hip",
+    "Spine",
+    "Knee"
+  ],
+  "range_of_motion_active": "Limited: Less than half",
+  "range_of_motion_passive": "Limited: More than half",
+  "muscle_strength": "Normal",
+  "physical_findings": [
+    "Tightness: Yes",
+    "Warmth: Yes",
+    "Redness: Yes",
+    "Deformity: Yes"
+  ],
+  "functional_limitations": [
+    "Lifting",
+    "Walking"
+  ],
+  "treatment_plan": "Example 4",
+  "modalities_used": "Example 5",
+  "assistive_aids": "Example 6",
+  "doctor_prescription": "Example 7",
+  "previous_physiotherapy": "Example 8",
+  "physiotherapist_name": "Example 9",
+  "signature": "Example 10"
+}
