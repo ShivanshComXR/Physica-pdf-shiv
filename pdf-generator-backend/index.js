@@ -69,7 +69,14 @@ app.post('/generate-pdf', (req, res) => {
   doc.image(painLevelImagePath, 258, 268, { width: 135 });
 
   doc.fontSize(10).text('Pain Type', 451, 250);
-  doc.fontSize(8 * scaleFactor).text(data.pain_type.join(', '), 451, 272);
+  const painTypeText = data.pain_type.join(', ');
+  // Split the text into multiple lines based on the separator (comma)
+  const painparts = painTypeText.split(', ');
+  // Render each part on a new line
+  doc.fontSize(8 * scaleFactor);
+  painparts.forEach((painpart, index) => {
+  doc.text(painpart.trim(), 451, 272 + index * 12);
+  });
 
   // Physical Assessment Findings
   doc.fontSize(10).text('Physical Assessment Findings', 15, 314);
@@ -83,16 +90,22 @@ app.post('/generate-pdf', (req, res) => {
   });
 
   // Add Positive Special Tests
-  //doc.fontSize(10).text('Positive Special Tests', 283, 314).fontSize(10);
-  //doc.fontSize(8 * scaleFactor).text('McMurray test - Mild Pain', 283, 333);
+  doc.fontSize(10).text('Positive Special Tests', 283, 314).fontSize(10);
+  doc.fontSize(8 * scaleFactor).text('McMurray test - Mild Pain', 283, 333);// Add dynamically if available
   // Add Neurological Symptoms
-  //doc.fontSize(10).text('Neurological Symptoms', 283, 351);
-  //doc.fontSize(8 * scaleFactor).text('None', 283, 369);
+  doc.fontSize(10).text('Neurological Symptoms', 283, 351);
+  doc.fontSize(8 * scaleFactor).text('None', 283, 369);// Add dynamically if available
 
   // Functional Limitations
   doc.fontSize(10).text('Functional Limitations', 283, 386);
-  doc.fontSize(8 * scaleFactor).text(data.functional_limitations.join(', '), 283, 404);
-
+  //doc.fontSize(8 * scaleFactor).text(data.functional_limitations.join(', '), 283, 404);
+  const funlimTypeText = data.functional_limitations.join(', ');
+  const funlimparts = funlimTypeText.split(', ');
+  doc.fontSize(8 * scaleFactor);
+  funlimparts.forEach((funlimpart, index) => {
+  doc.text(funlimpart.trim(), 283, 404 + index * 12);
+  });
+  
   // Treatment Plan
   doc.fontSize(10).text('Treatment Plan', 15, 508);
   doc.fontSize(8 * scaleFactor).text(data.treatment_plan, 15, 526);
