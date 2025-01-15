@@ -1,12 +1,12 @@
 {
-  "patient_name": "Mitesh",
-  "date": "2024-10-03",
-  "age": "23",
+  "patient_name": "Rehan Poonawala",
+  "date": "2025-01-08",
+  "age": "32",
   "gender": "Male",
-  "surgery_type": "Example 1",
-  "date_of_surgery": "2025-01-11",
-  "primary_complaint": "Example 2",
-  "differential_diagnosis": "Example 3",
+  "surgery_type": "Advise the patient to avoid prolonged sitting and heavy lifting.",
+  "date_of_surgery": "2025-01-03",
+  "primary_complaint": "Advise the patient to avoid prolonged sitting and heavy lifting.Advise the patient to avoid prolonged sitting Advise the patient to avoid prolonged sitting and heavy lifting.",
+  "differential_diagnosis": "Advise the patient to avoid prolonged sitting and heavy lifting.",
   "pain_level": "6",
   "pain_type": [
     "Sharp shooting",
@@ -14,27 +14,33 @@
   ],
   "affected_joints": [
     "Hip",
-    "Spine",
-    "Knee"
+    "Knee",
+    "Shoulder"
   ],
-  "range_of_motion_active": "Limited: Less than half",
-  "range_of_motion_passive": "Limited: More than half",
+  "range_of_motion_active": "Limited: More than half",
+  "range_of_motion_passive": "Limited: Less than half",
   "muscle_strength": "Normal",
   "physical_findings": [
-    "Tightness: Yes",
-    "Warmth: Yes",
-    "Redness: Yes",
-    "Deformity: Yes"
+          "Swelling: Present",
+          "Tenderness: Yes",
+          "Redness: Yes",
+          "Warmth: No",
+          "Tightness: Yes",
+          "Contracture: No",
+          "Deformity: No",
+          "Crepitus: Yes",
+          "Oedema: Yes: Non-pitting"
   ],
   "functional_limitations": [
+    "Walking",
     "Lifting",
-    "Walking"
+    "Sitting"
   ],
-  "treatment_plan": "Example 4",
-  "modalities_used": "Example 5",
-  "assistive_aids": "Example 6",
-  "doctor_prescription": "Example 7",
-  "previous_physiotherapy": "Example 8",
-  "physiotherapist_name": "Example 9",
-  "signature": "Example 10"
+  "treatment_plan": "Advise the patient to avoid prolonged sitting and heavy lifting.Advise the patient to avoid prolonged sitting and heavy lifting.Advise the patient to avoid prolonged sitting and heavy lifting.",
+  "modalities_used": "Advise the patient to avoid prolonged sitting and heavy lifting.Advise the patient to avoid prolonged sitting",
+  "assistive_aids": "Advise the patient to avoid prolonged sitting and heavy lifting. Advise the patient to avoid prolonged sitting",
+  "doctor_prescription": "Advise the patient to avoid prolonged sitting and heavy lifting. Advise the patient to avoid prolonged sitting and heavy lifting. Advise the patient to avoid prolonged sitting and heavy lifting. Advise the patient to avoid prolonged sitting and heavy lifting.",
+  "previous_physiotherapy": "Example 1",
+  "physiotherapist_name": "Example 1",
+  "signature": "Example 1"
 }

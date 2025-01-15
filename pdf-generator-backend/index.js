@@ -10,16 +10,29 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-let storedData = null; // Store JSON data temporarily
 // Endpoint to save JSON data
 app.post('/save-json', (req, res) => {
   data = req.body;
+   // Log the received data in a pretty JSON format
+   console.log('Received JSON data:', JSON.stringify(data, null, 2));
   res.status(200).send('Data saved successfully');
+
+ 
 });
 
 app.post('/generate-pdf', (req, res) => {
   // Load the JSON file dynamically
   //const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+  // if (!data) {
+  //   return res.status(400).send('No data available to generate PDF');
+  // }
+  // let data;
+  // try {
+  //   data = JSON.parse(fs.readFileSync('./data.json', 'utf8')); // Ensure the file path is correct
+  // } catch (err) {
+  //   console.error('Error reading JSON file:', err.message);
+  //   return res.status(400).send('Failed to load JSON data. Ensure the file exists and is properly formatted.');
+  // }
   if (!data) {
     return res.status(400).send('No data available to generate PDF');
   }
@@ -43,84 +56,107 @@ app.post('/generate-pdf', (req, res) => {
   doc.font('./assets/PlusJakartaSans-SemiBold.ttf');
 
   // Add the header text
-  doc.fontSize(8 * scaleFactor).fillColor('#333').text(`Name: ${data.patient_name}`, 15, 90);
-  doc.fontSize(8 * scaleFactor).text(`Age/Sex: ${data.age}Y / ${data.gender}`, 247, 90);
-  doc.fontSize(8 * scaleFactor).text(`Date of Session: ${data.date}`, 441, 90);
+  doc.fontSize(8 * scaleFactor).fillColor('#333').text(`Name: ${data.patient_name}`, 15, 97);
+  doc.fontSize(8 * scaleFactor).text(`Age/Sex: ${data.age}Y / ${data.gender}`, 202, 97);
+  doc.fontSize(8 * scaleFactor).text(`Date Of Session: ${data.date}`, 388, 97);
 
-  doc.fontSize(8 * scaleFactor).text(`Doctor: ${data.physiotherapist_name}`, 15, 114);
-  doc.fontSize(8 * scaleFactor).text(`Patient ID: 1012`, 247, 114); // Add Patient ID dynamically if available
-  doc.fontSize(8 * scaleFactor).text(`Date of Report: ${data.date_of_surgery}`, 441, 114);
+  doc.fontSize(8 * scaleFactor).text(`Doctor: ${data.physiotherapist_name}`, 15, 117);
+  doc.fontSize(8 * scaleFactor).text(`Patient ID: 1012`, 202, 117); // Add Patient ID dynamically if available
+  doc.fontSize(8 * scaleFactor).text(`Date Of Report: 11/01/2025`, 388, 117);
 
-  doc.fontSize(8 * scaleFactor).text(`Surgery Type: ${data.surgery_type}`, 15, 139);
+  doc.fontSize(8 * scaleFactor).text(`Surgery Type: ${data.surgery_type}`, 15, 138, { width: 170 });
+  doc.fontSize(8 * scaleFactor).text(`Date Of Surgery: ${data.date_of_surgery}`, 202, 138);
 
-  // Horizontal line
-  doc.moveTo(9, 170).lineTo(585, 170).stroke();
+  // Horizontal line Section 1
+  doc.strokeColor('#FF9318');
+  doc.strokeOpacity(0.7);
+  doc.lineWidth(0.2);  
+  doc.moveTo(7, 173).lineTo(587, 173).stroke();
 
   // Primary Complaints
-  doc.fontSize(10).text('Primary Complaints', 15, 205);
-  doc.fontSize(8 * scaleFactor).text(data.primary_complaint, 15, 226);
+  doc.fontSize(10).text('Primary Complaints', 15, 189);
+  doc.fontSize(8 * scaleFactor).text(data.primary_complaint, 15, 206, { width: 550 });
 
   // Diagnosis
-  doc.fontSize(10).text('Diagnosis', 15, 250);
-  doc.fontSize(8 * scaleFactor).text(data.differential_diagnosis, 15, 272);
+  doc.fontSize(10).text('Differential Diagnosis', 15, 246);
+  doc.fontSize(8 * scaleFactor).text(data.differential_diagnosis, 15, 265, { width: 170 });
 
   // Pain Level and Pain Type
-  doc.fontSize(10).text(`Pain Level: ${data.pain_level}/10`, 258, 250);
-  doc.image(painLevelImagePath, 258, 268, { width: 135 });
+  doc.fontSize(10).text(`Pain Level: ${data.pain_level}/10`, 202, 246);
+  doc.image(painLevelImagePath, 202, 265, { width: 135 });
 
-  doc.fontSize(10).text('Pain Type', 451, 250);
-  const painTypeText = data.pain_type.join(', ');
-  // Split the text into multiple lines based on the separator (comma)
-  const painparts = painTypeText.split(', ');
-  // Render each part on a new line
-  doc.fontSize(8 * scaleFactor);
-  painparts.forEach((painpart, index) => {
-  doc.text(painpart.trim(), 451, 272 + index * 12);
-  });
+  doc.fontSize(10).text('Pain Type', 388, 246);
+const painTypeText = data.pain_type.join(', '); // Join the pain_type values with a comma
+doc.fontSize(8 * scaleFactor).text(painTypeText, 388, 265, { width: 170 }); // Render the joined string on one line
+
+ // Horizontal line Section 2
+ doc.moveTo(7, 300).lineTo(587, 300).stroke();  
+
 
   // Physical Assessment Findings
-  doc.fontSize(10).text('Physical Assessment Findings', 15, 314);
-  doc.fontSize(8 * scaleFactor).text(`Affected Areas: ${data.affected_joints.join(', ')}`, 15, 339);
-  doc.fontSize(8 * scaleFactor).text(`ROM of Affected Areas: ${data.range_of_motion_active}`, 15, 353);
-  doc.fontSize(8 * scaleFactor).text(`ROM of Affected Areas (Passive): ${data.range_of_motion_passive}`, 15, 371);
-  doc.fontSize(8 * scaleFactor).text(`Muscle Strength: ${data.muscle_strength}`, 15, 389);
+  doc.fontSize(10).text('Physical Assessment Findings', 15, 318);
+  doc.fontSize(8 * scaleFactor).text(`Affected Areas: ${data.affected_joints.join(', ')}`, 15, 340, { width: 550 });
+  doc.fontSize(8 * scaleFactor).text(`ROM (Active): ${data.range_of_motion_active}`, 15, 360);
+  doc.fontSize(8 * scaleFactor).text(`ROM (Passive): ${data.range_of_motion_passive}`, 202, 360);
+  doc.fontSize(8 * scaleFactor).text(`Muscle Strength: ${data.muscle_strength}`, 388, 360);
 
-  data.physical_findings.forEach((finding, index) => {
-    doc.fontSize(8 * scaleFactor).text(finding, 15, 407 + index * 18);
-  });
+  // data.physical_findings.forEach((finding, index) => {
+  //   doc.fontSize(8 * scaleFactor).text(finding, 15, 407 + index * 18);
+  // });
+
+const startX = [15, 202, 388]; // X coordinates for the three columns
+const startY = 380; // Initial Y coordinate
+
+data.physical_findings.forEach((finding, index) => {
+  // Determine the column (X) and row (Y)
+  const column = index % 3; // This will determine the column: 0, 1, 2
+  const row = Math.floor(index / 3); // This will determine the row: 0, 1, 2, etc.
+
+  // Calculate the X and Y position
+  const xPos = startX[column]; // Use the column to get the X position
+  const yPos = startY + row * 20; // Add row offset to Y position
+
+  // Add the finding text at the calculated position
+  doc.fontSize(8 * scaleFactor).text(finding, xPos, yPos);
+});
 
   // Add Positive Special Tests
-  doc.fontSize(10).text('Positive Special Tests', 283, 314).fontSize(10);
-  doc.fontSize(8 * scaleFactor).text('McMurray test - Mild Pain', 283, 333);// Add dynamically if available
+  doc.fontSize(10).text('Positive Special Tests', 15, 450).fontSize(10);
+  doc.fontSize(8 * scaleFactor).text('McMurray test - Mild Pain', 15, 472, { width: 170 });// Add dynamically if available
   // Add Neurological Symptoms
-  doc.fontSize(10).text('Neurological Symptoms', 283, 351);
-  doc.fontSize(8 * scaleFactor).text('None', 283, 369);// Add dynamically if available
+  doc.fontSize(10).text('Neurological Symptoms', 388, 450);
+  doc.fontSize(8 * scaleFactor).text('None', 388, 472, { width: 170 });// Add dynamically if available
 
-  // Functional Limitations
-  doc.fontSize(10).text('Functional Limitations', 283, 386);
-  //doc.fontSize(8 * scaleFactor).text(data.functional_limitations.join(', '), 283, 404);
-  const funlimTypeText = data.functional_limitations.join(', ');
-  const funlimparts = funlimTypeText.split(', ');
-  doc.fontSize(8 * scaleFactor);
-  funlimparts.forEach((funlimpart, index) => {
-  doc.text(funlimpart.trim(), 283, 404 + index * 12);
-  });
-  
-  // Treatment Plan
-  doc.fontSize(10).text('Treatment Plan', 15, 508);
-  doc.fontSize(8 * scaleFactor).text(data.treatment_plan, 15, 526);
+ // Functional Limitations
+doc.fontSize(10).text('Functional Limitations', 202, 450);
+const funlimTypeText = data.functional_limitations.join(', ');
+doc.fontSize(8 * scaleFactor).text(funlimTypeText, 202, 472, { width: 170 });
+
+ // Horizontal line Section 3
+ doc.moveTo(7, 512).lineTo(587, 512).stroke();  
+
+  // Treatment Duration
+  doc.fontSize(10).text('Treatment Duration', 15, 530);
+  doc.fontSize(8 * scaleFactor).text('6 weeks|2 to 3 sessions per week.', 15, 547, { width: 170 });
 
   // Modalities
-  doc.fontSize(10).text('Modalities', 247, 508);
-  doc.fontSize(8 * scaleFactor).text(data.modalities_used, 247, 526);
+  doc.fontSize(10).text('Modalities', 202, 530);
+  doc.fontSize(8 * scaleFactor).text(data.modalities_used, 202, 547, { width: 170 });
 
   // Additional Assistive Aids
-  doc.fontSize(10).text('Additional Assistive Aids', 430, 508);
-  doc.fontSize(8 * scaleFactor).text(data.assistive_aids, 430, 526);
+  doc.fontSize(10).text('Additional Assistive Aids', 388, 530);
+  doc.fontSize(8 * scaleFactor).text(data.assistive_aids, 388, 547, { width: 170 });
+
+  //Treatment Plan
+  doc.fontSize(10).text('Treatment Plan', 15, 575);
+  doc.fontSize(8 * scaleFactor).text(data.treatment_plan, 15, 592, { width: 550 });
+
+  // Horizontal line Section 3
+  doc.moveTo(7, 627).lineTo(587, 627).stroke(); 
 
   // Additional Notes
-  doc.fontSize(10).text('Additional Notes', 15, 624);
-  doc.fontSize(8 * scaleFactor).text(data.doctor_prescription, 15, 645, { width: 500 });
+  doc.fontSize(10).text('Additional Notes', 15, 642);
+  doc.fontSize(8 * scaleFactor).text(data.doctor_prescription, 15, 660, { width: 550 });
 
   // Footer
   doc.fontSize(7 * 1.155).text('Physica Healthtech Private Limited', 15, 780);

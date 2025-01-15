@@ -164,3 +164,69 @@ const App = () => {
 };
 
 export default App;
+
+
+// import React, { useState } from "react";
+
+// function App() {
+//   const [loading, setLoading] = useState(false);
+
+//   const handleGeneratePDF = async () => {
+//     setLoading(true);
+
+//     try {
+//       // Make a request to the backend's `/generate-pdf` endpoint
+//       const response = await fetch("http://localhost:3001/generate-pdf", {
+//         method: "POST",
+//       });
+
+//       if (!response.ok) {
+//         throw new Error("Failed to generate PDF");
+//       }
+
+//       // Create a blob from the PDF response
+//       const blob = await response.blob();
+//       const url = window.URL.createObjectURL(blob);
+
+//       // Trigger the download
+//       const link = document.createElement("a");
+//       link.href = url;
+//       link.download = "Generated_Report.pdf";
+//       document.body.appendChild(link);
+//       link.click();
+//       link.remove();
+
+//       setLoading(false);
+//       alert("PDF downloaded successfully!");
+//     } catch (error) {
+//       setLoading(false);
+//       console.error("Error generating PDF:", error);
+//       alert("An error occurred while generating the PDF. Check the console for details.");
+//     }
+//   };
+
+//   return (
+//     <div style={{ textAlign: "center", padding: "50px" }}>
+//       <h1>Generate PDF</h1>
+//       <p>Click the button below to generate a PDF using the data from <code>data.json</code>.</p>
+//       <button
+//         onClick={handleGeneratePDF}
+//         disabled={loading}
+//         style={{
+//           padding: "10px 20px",
+//           fontSize: "16px",
+//           backgroundColor: loading ? "gray" : "#007BFF",
+//           color: "white",
+//           border: "none",
+//           borderRadius: "5px",
+//           cursor: loading ? "not-allowed" : "pointer",
+//         }}
+//       >
+//         {loading ? "Generating PDF..." : "Generate PDF"}
+//       </button>
+//     </div>
+//   );
+// }
+
+// export default App;
+
