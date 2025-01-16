@@ -36,3 +36,170 @@
     transform: rotate(360deg);
   }
 }
+/* App.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.app-header {
+  background-color: #0056b3;
+  color: white;
+  padding: 15px 20px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-main {
+  margin: 20px 0;
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.question-container {
+  margin-bottom: 20px;
+}
+
+.question-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.form-option label {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-submit-btn {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.form-submit-btn:hover {
+  background-color: #003d80;
+}
+
+.question-container {
+  margin-bottom: 20px;
+}
+
+.checkbox-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-item label {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.pdf-container {
+  text-align: center;
+}
+
+.pdf-generate-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.pdf-generate-btn:hover {
+  background-color: #218838;
+}
+
+.app-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Radio button styling */
+.form-option input[type='radio'] {
+  margin-right: 10px;
+}
+
+/* Date picker styling */
+.form-input[type='date'] {
+  position: relative;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-input[type='date']::before {
+  font-size: 18px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+}
+
+.form-input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    width: 90%;
+  }
+}
