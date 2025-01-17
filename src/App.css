@@ -160,6 +160,28 @@ body {
   background-color: #218838;
 }
 
+/* Two-column layout for physical findings */
+.physical-findings-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 20px; /* Space between columns */
+}
+
+.physical-finding-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.physical-finding-item .form-option {
+  margin-bottom: 8px;
+  font-size: 14px; /* Ensure text matches */
+}
+
+.physical-finding-item h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
 .app-footer {
   margin-top: 20px;
   text-align: center;

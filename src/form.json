@@ -83,30 +83,58 @@
         "options": ["Normal", "Weak"]
       },
       {
-        "id": "physical_findings",
-        "question": "Physical Assessment Findings",
-        "answer_type": "checkbox",
-        "options": [
-          "Swelling: Present",
-          "Swelling: Absent",
-          "Tenderness: Yes",
-          "Tenderness: No",
-          "Redness: Yes",
-          "Redness: No",
-          "Warmth: Yes",
-          "Warmth: No",
-          "Tightness: Yes",
-          "Tightness: No",
-          "Contracture: Yes",
-          "Contracture: No",
-          "Deformity: Yes",
-          "Deformity: No",
-          "Crepitus: Yes",
-          "Crepitus: No",
-          "Oedema: No",
-          "Oedema: Yes: Pitting",
-          "Oedema: Yes: Non-pitting"
-        ]
+        "id": "swelling",
+        "question": "Swelling",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "tenderness",
+        "question": "Tenderness",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "redness",
+        "question": "Redness",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "warmth",
+        "question": "Warmth",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "tightness",
+        "question": "Tightness",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "contracture",
+        "question": "Contracture",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "deformity",
+        "question": "Deformity",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "crepitus",
+        "question": "Crepitus",
+        "answer_type": "radio",
+        "options": ["Yes", "No"]
+      },
+      {
+        "id": "oedema",
+        "question": "Oedema",
+        "answer_type": "radio",
+        "options": ["No", "Yes: Pitting", "Yes: Non-pitting"]
       },
       {
         "id": "functional_limitations",

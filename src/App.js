@@ -57,6 +57,33 @@ const App = () => {
     }
   };
 
+  const renderPhysicalFindings = (questions) => {
+    const physicalFindings = questions.filter((q) =>
+      ['swelling', 'tenderness', 'redness', 'warmth', 'tightness', 'contracture', 'deformity', 'crepitus', 'oedema'].includes(q.id)
+    );
+
+    return (
+      <div className="physical-findings-container">
+        {physicalFindings.map((field) => (
+          <div key={field.id} className="physical-finding-item">
+            <h3 className="question-title">{field.question}</h3>
+            {field.options.map((option) => (
+              <label key={`${field.id}-${option}`} className="form-option">
+                <input
+                  type="radio"
+                  name={field.id}
+                  value={option}
+                  onChange={() => handleInputChange(field.id, option)}
+                />
+                {option}
+              </label>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   const renderField = (field) => {
     switch (field.answer_type) {
       case 'text':
@@ -120,37 +147,17 @@ const App = () => {
       <main className="app-main">
         {!isFormSubmitted ? (
           <div className="form-container">
-            {questions.map((question, index) => (
-              <div key={index} className="question-container">
-                <h2 className="question-title">{question.question}</h2>
-                {question.answer_type === "checkbox" ? (
-                  <div className="checkbox-container">
-                    {question.options.map((option) => (
-                      <div key={`${question.id}-${option}`} className="checkbox-item">
-                        <input
-                          type="checkbox"
-                          value={option}
-                          onChange={(e) => {
-                            const newValue = responses[question.id] || [];
-                            if (e.target.checked) {
-                              handleInputChange(question.id, [...newValue, option]);
-                            } else {
-                              handleInputChange(
-                                question.id,
-                                newValue.filter((val) => val !== option)
-                              );
-                            }
-                          }}
-                        />
-                        <label>{option}</label>
-                      </div>
-                    ))}
+            {questions.map(
+              (question, index) =>
+                !['swelling', 'tenderness', 'redness', 'warmth', 'tightness', 'contracture', 'deformity', 'crepitus', 'oedema'].includes(question.id) && (
+                  <div key={index} className="question-container">
+                    <h2 className="question-title">{question.question}</h2>
+                    {renderField(question)}
+                    {/* Insert physical findings section after the muscle strength question */}
+                {question.id === 'muscle_strength' && renderPhysicalFindings(questions)}
                   </div>
-                ) : (
-                  renderField(question)
-                )}
-              </div>
-            ))}
+                )
+            )}
             <button className="form-submit-btn" onClick={handleFormSubmit}>
               Submit
             </button>
@@ -169,12 +176,9 @@ const App = () => {
       </footer>
     </div>
   );
-  
 };
 
 export default App;
-
-
 
 // import React, { useState } from "react";
 

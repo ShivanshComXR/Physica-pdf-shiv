@@ -93,32 +93,37 @@ doc.fontSize(8 * scaleFactor).text(painTypeText, 388, 265, { width: 170 }); // R
  doc.moveTo(7, 300).lineTo(587, 300).stroke();  
 
 
-  // Physical Assessment Findings
-  doc.fontSize(10).text('Physical Assessment Findings', 15, 318);
-  doc.fontSize(8 * scaleFactor).text(`Affected Areas: ${data.affected_joints.join(', ')}`, 15, 340, { width: 550 });
-  doc.fontSize(8 * scaleFactor).text(`ROM (Active): ${data.range_of_motion_active}`, 15, 360);
-  doc.fontSize(8 * scaleFactor).text(`ROM (Passive): ${data.range_of_motion_passive}`, 202, 360);
-  doc.fontSize(8 * scaleFactor).text(`Muscle Strength: ${data.muscle_strength}`, 388, 360);
+   // Physical Assessment Findings
+   doc.fontSize(10).text('Physical Assessment Findings', 15, 318);
 
-  // data.physical_findings.forEach((finding, index) => {
-  //   doc.fontSize(8 * scaleFactor).text(finding, 15, 407 + index * 18);
-  // });
-
-const startX = [15, 202, 388]; // X coordinates for the three columns
-const startY = 380; // Initial Y coordinate
-
-data.physical_findings.forEach((finding, index) => {
-  // Determine the column (X) and row (Y)
-  const column = index % 3; // This will determine the column: 0, 1, 2
-  const row = Math.floor(index / 3); // This will determine the row: 0, 1, 2, etc.
-
-  // Calculate the X and Y position
-  const xPos = startX[column]; // Use the column to get the X position
-  const yPos = startY + row * 20; // Add row offset to Y position
-
-  // Add the finding text at the calculated position
-  doc.fontSize(8 * scaleFactor).text(finding, xPos, yPos);
-});
+   // Collect physical findings dynamically from the new fields
+   const physicalFindings = [
+     `Swelling: ${data.swelling}`,
+     `Tenderness: ${data.tenderness}`,
+     `Redness: ${data.redness}`,
+     `Warmth: ${data.warmth}`,
+     `Tightness: ${data.tightness}`,
+     `Contracture: ${data.contracture}`,
+     `Deformity: ${data.deformity}`,
+     `Crepitus: ${data.crepitus}`,
+     `Oedema: ${data.oedema}`,
+   ];
+ 
+   const startX = [15, 202, 388]; // X coordinates for the three columns
+   const startY = 340; // Initial Y coordinate
+ 
+   physicalFindings.forEach((finding, index) => {
+     // Determine the column (X) and row (Y)
+     const column = index % 3; // This will determine the column: 0, 1, 2
+     const row = Math.floor(index / 3); // This will determine the row: 0, 1, 2, etc.
+ 
+     // Calculate the X and Y position
+     const xPos = startX[column]; // Use the column to get the X position
+     const yPos = startY + row * 20; // Add row offset to Y position
+ 
+     // Add the finding text at the calculated position
+     doc.fontSize(8 * scaleFactor).text(finding, xPos, yPos);
+   });
 
   // Add Positive Special Tests
   doc.fontSize(10).text('Positive Special Tests', 15, 450).fontSize(10);
