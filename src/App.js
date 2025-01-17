@@ -1,36 +1,5 @@
-// import React from 'react';
-
-// function App() {
-//   const generatePDF = async () => {
-//     const response = await fetch('http://localhost:3001/generate-pdf', {
-//       method: 'POST',
-//     });
-
-//     // Check if the response is successful
-//     if (response.ok) {
-//       const blob = await response.blob();  // Get the PDF as a Blob
-//       const url = window.URL.createObjectURL(blob);  // Create an object URL for the Blob
-//       const a = document.createElement('a');  // Create an anchor element
-//       a.style.display = 'none';  // Hide the anchor element
-//       a.href = url;  // Set the href to the object URL
-//       a.download = 'generated.pdf';  // Set the file name for download
-//       document.body.appendChild(a);  // Append the anchor to the body
-//       a.click();  // Programmatically click the anchor to trigger download
-//       window.URL.revokeObjectURL(url);  // Clean up the object URL
-//     } else {
-//       console.error('PDF generation failed');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={generatePDF}>Generate PDF</button>
-//     </div>
-//   );
-// }
-
-// export default App;
 import React, { useState } from 'react';
+import './App.css';
 
 const App = () => {
   const [responses, setResponses] = useState({});
@@ -76,7 +45,7 @@ const App = () => {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = 'generated.pdf';
+        a.download = 'Patient_Report.pdf';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -95,6 +64,7 @@ const App = () => {
       case 'date':
         return (
           <input
+            className="form-input"
             type={field.answer_type}
             placeholder={field.placeholder || ''}
             onChange={(e) => handleInputChange(field.id, e.target.value)}
@@ -102,7 +72,7 @@ const App = () => {
         );
       case 'radio':
         return field.options?.map((option) => (
-          <div key={`${field.id}-${option}`} className="option">
+          <div key={`${field.id}-${option}`} className="form-option">
             <label>
               <input
                 type="radio"
@@ -116,7 +86,7 @@ const App = () => {
         ));
       case 'checkbox':
         return field.options?.map((option) => (
-          <div key={`${field.id}-${option}`} className="option">
+          <div key={`${field.id}-${option}`} className="form-option">
             <label>
               <input
                 type="checkbox"
@@ -143,27 +113,67 @@ const App = () => {
   };
 
   return (
-    <div>
-      {!isFormSubmitted ? (
-        <div className="form-container">
-          {questions.map((question, index) => (
-            <div key={index} className="question">
-              <h2>{question.question}</h2>
-              {renderField(question)}
-            </div>
-          ))}
-          <button onClick={handleFormSubmit}>Submit</button>
-        </div>
-      ) : (
-        <div>
-          <button onClick={handleGeneratePDF}>Generate PDF</button>
-        </div>
-      )}
+    <div className="app-container">
+      <header className="app-header">
+        <h1>Patient Intake Form</h1>
+      </header>
+      <main className="app-main">
+        {!isFormSubmitted ? (
+          <div className="form-container">
+            {questions.map((question, index) => (
+              <div key={index} className="question-container">
+                <h2 className="question-title">{question.question}</h2>
+                {question.answer_type === "checkbox" ? (
+                  <div className="checkbox-container">
+                    {question.options.map((option) => (
+                      <div key={`${question.id}-${option}`} className="checkbox-item">
+                        <input
+                          type="checkbox"
+                          value={option}
+                          onChange={(e) => {
+                            const newValue = responses[question.id] || [];
+                            if (e.target.checked) {
+                              handleInputChange(question.id, [...newValue, option]);
+                            } else {
+                              handleInputChange(
+                                question.id,
+                                newValue.filter((val) => val !== option)
+                              );
+                            }
+                          }}
+                        />
+                        <label>{option}</label>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  renderField(question)
+                )}
+              </div>
+            ))}
+            <button className="form-submit-btn" onClick={handleFormSubmit}>
+              Submit
+            </button>
+          </div>
+        ) : (
+          <div className="pdf-container">
+            <p>Form submitted successfully. Download a PDF of your report.</p>
+            <button className="pdf-generate-btn" onClick={handleGeneratePDF}>
+              Download
+            </button>
+          </div>
+        )}
+      </main>
+      <footer className="app-footer">
+        <p>&copy; {new Date().getFullYear()} Physica Physiotherapy Clinic</p>
+      </footer>
     </div>
   );
+  
 };
 
 export default App;
+
 
 
 // import React, { useState } from "react";
