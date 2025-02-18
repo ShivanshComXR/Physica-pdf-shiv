@@ -12,27 +12,27 @@ app.use(bodyParser.json());
 
 // Endpoint to save JSON data
 app.post('/save-json', (req, res) => {
-  data = req.body;
-   // Log the received data in a pretty JSON format
-   console.log('Received JSON data:', JSON.stringify(data, null, 2));
-  res.status(200).send('Data saved successfully');
+  // data = req.body;
+  //  // Log the received data in a pretty JSON format
+  //  console.log('Received JSON data:', JSON.stringify(data, null, 2));
+  // res.status(200).send('Data saved successfully');
 
  
 });
 
 app.post('/generate-pdf', (req, res) => {
   // Load the JSON file dynamically
-  //const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+  // const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
   // if (!data) {
   //   return res.status(400).send('No data available to generate PDF');
   // }
-  // let data;
-  // try {
-  //   data = JSON.parse(fs.readFileSync('./data.json', 'utf8')); // Ensure the file path is correct
-  // } catch (err) {
-  //   console.error('Error reading JSON file:', err.message);
-  //   return res.status(400).send('Failed to load JSON data. Ensure the file exists and is properly formatted.');
-  // }
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync('./data.json', 'utf8')); // Ensure the file path is correct
+  } catch (err) {
+    console.error('Error reading JSON file:', err.message);
+    return res.status(400).send('Failed to load JSON data. Ensure the file exists and is properly formatted.');
+  }
   if (!data) {
     return res.status(400).send('No data available to generate PDF');
   }
@@ -157,11 +157,11 @@ doc.fontSize(8 * scaleFactor).text(funlimTypeText, 202, 472, { width: 170 });
   doc.fontSize(8 * scaleFactor).text(data.treatment_plan, 15, 592, { width: 550 });
 
   // Horizontal line Section 3
-  doc.moveTo(7, 627).lineTo(587, 627).stroke(); 
+  doc.moveTo(7, 658).lineTo(587, 658).stroke(); 
 
   // Additional Notes
-  doc.fontSize(10).text('Additional Notes', 15, 642);
-  doc.fontSize(8 * scaleFactor).text(data.doctor_prescription, 15, 660, { width: 550 });
+  doc.fontSize(10).text('Additional Notes', 15, 670);
+  doc.fontSize(8 * scaleFactor).text(data.doctor_prescription, 15, 687, { width: 550 });
 
   // Footer
   doc.fontSize(7 * 1.155).text('Physica Healthtech Private Limited', 15, 780);
@@ -171,6 +171,8 @@ doc.fontSize(8 * scaleFactor).text(funlimTypeText, 202, 472, { width: 170 });
   doc.fontSize(6 * 1.3).text('www.physica.fit', 27, 815);
   doc.image(callImagePath, 139, 815, { width: 10 });
   doc.fontSize(6 * 1.2).text('+91 9892260450', 153, 815);
+
+  doc.fontSize(8 * scaleFactor).text(`E`, 580, 830);
 
   doc.end();
 });
